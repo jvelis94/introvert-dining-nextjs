@@ -16,12 +16,15 @@ import React, {useState, useContext} from 'react';
 import OrderContext from '../../store/order-context';
 
 
+
 const MenuItem = (props) => {
     const { name, label, category, blurb, abv, details, origin, price, rating } = props.item
     let nameSplit = name.split(' ')
     let nameCapiTalizedEachWord = nameSplit.map(word => `${word[0].toUpperCase()}${word.substring(1)}`).join(' ')
 
     const ctx = useContext(OrderContext)
+    
+
 
     const menuItemImages = {
         "Appetizers": appetizers,
@@ -35,6 +38,11 @@ const MenuItem = (props) => {
     }
 
     let selectedJpgImage = menuItemImages[category]
+
+    // const addToCart = async () => {
+
+    //     const response = 
+    // }
 
     return (
         <div className={styles.menuItem_container}>
