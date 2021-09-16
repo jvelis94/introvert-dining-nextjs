@@ -1,14 +1,11 @@
 import React, {useRef, useEffect, useState, useContext} from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { ColorizeTwoTone } from '@material-ui/icons'
-import OrderContext from '../store/order-context'
 import { useCookies } from 'react-cookie';
 
 const NewOrder = (props) => {
     const emailRef = useRef()
     const router = useRouter()
-    const ctx = useContext(OrderContext)
     const [cookies, setCookie, removeCookie] = useCookies(['email']);
   
     const handleEmailSubmit = async (e) => {
@@ -22,7 +19,6 @@ const NewOrder = (props) => {
         })
 
         if (response.status === 200) {
-            const order = response.data
             setCookie("email", emailRef.current.value, { 
                 path: "/",
                 maxAge: 3600, // Expires after 1hr
