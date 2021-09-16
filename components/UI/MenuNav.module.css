@@ -1,0 +1,11 @@
+.menuNavContainer {
+    display: flex;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: 16px;
+}
+
+.menuNavContainer::-webkit-scrollbar {
+    display: none;
+}

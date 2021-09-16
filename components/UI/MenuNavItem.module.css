@@ -1,0 +1,30 @@
+.buttonDefault {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 50px;
+    padding: 8px;
+    border: none;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+.imageContainer {
+    width:25px;
+    height:25px;
+    position: relative;
+}
+
+.buttonInactive {
+    background-color: white;
+    color: black;
+}
+
+.buttonActive {
+    background-color: #FFC534;
+    color: black;
+}
+
+.svgIconSpanSpacing {
+    margin-left: 4px;
+}
