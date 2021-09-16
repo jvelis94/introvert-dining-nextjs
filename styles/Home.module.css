@@ -113,6 +113,15 @@
   margin-left: 0.5rem;
 }
 
+.orderBtn {
+  background-color: #FFC534;
+  padding: 16px 24px;
+  font-weight: bold;
+  border-radius: 12px;
+  border: none;
+  font-size: large;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

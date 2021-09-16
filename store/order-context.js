@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState, useCallback, useContext, useReducer } from "react";
-// import { PrismaClient } from '@prisma/client'
-// const prisma = new PrismaClient()
+import { useCookies } from 'react-cookie';
 
 const OrderContext = React.createContext({
     total: 0,
@@ -29,6 +28,7 @@ export const OrderContextProvider = (props) => {
     const [currentOrder, setCurrentOrder] = useState(initialOrderState)
     const [addedNewOrderItem, setAddedNewOrderItem] = useState(false)
     const [total, setTotal] = useState(0)
+    const [cookies, setCookie, removeCookie] = useCookies(['email']);
 
     useEffect(() => {
         // fetch('/api/cart')
@@ -40,6 +40,7 @@ export const OrderContextProvider = (props) => {
         //     })
         setAddedNewOrderItem(false)
     }, [addedNewOrderItem])
+
 
     const addToCart = async (product) => {
         console.log(total)
@@ -136,7 +137,7 @@ export const OrderContextProvider = (props) => {
                 addToCart: addToCart,
                 incrementQuantity: incrementQuantity,
                 decrementQuantity: decrementQuantity,
-                removeCartItem: removeCartItem,
+                removeCartItem: removeCartItem
             }}
         >
             {props.children}

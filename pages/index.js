@@ -18,11 +18,11 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to My Restaurant App
         </h1>
-        <button>
-          <Link href="/menu">
-            <a>Place an order</a>
-          </Link>
-        </button>
+        <Link href="/new_order" passHref >
+          <button className={styles.orderBtn}>
+            Place an order
+          </button>
+        </Link>
       </main>
 
       <footer className={styles.footer}>
