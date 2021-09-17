@@ -54,8 +54,8 @@ export default function NewOrderModal(props) {
         })
         console.log('set cookies')
         props.handleClose()
-        router.push('/menu')
-        router.reload()
+
+        router.pathname === "/menu" ? reouter.reload : router.push('/menu')
     }
 
     return (
