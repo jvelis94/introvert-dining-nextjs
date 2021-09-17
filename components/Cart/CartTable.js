@@ -9,30 +9,41 @@ import axios from 'axios'
 const CartTable = (props) => {
     const ctx = useContext(OrderContext)
     const [cookies, setCookie, removeCookie] = useCookies([]);
-    const orderItems = props.currentOrder.order_items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    const [order, setOrder] = useState(props.currentOrder)
+    const sortedOrderItems = order.order_items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 
-    const incrementQuantity = (item) => {
-        ctx.incrementQuantity(item)
-        // setQuantity(prevState => prevState + 1)
+    const incrementQuantity = async (item) => {
+        const data = { order_id: props.currentOrder.id, item_action: "increment"}
+        const response = await axios(
+            {   method: 'patch', 
+                url: `${process.env.API_URL}/api/orders/${props.currentOrder.id}/order_items/${item.id}`, 
+                data: data
+            })
+        console.log(response.data)
+        setOrder(response.data)
+    
     }
 
-    const decrementQuantity = (item) => {
-        ctx.decrementQuantity(item)
-        console.log(orderItems)
-        // setQuantity(prevState => prevState - 1)
+    const decrementQuantity = async (item) => {
+        const data = { order_id: props.currentOrder.id, item_action: "decrement"}
+        const response = await axios(
+            {   method: 'patch', 
+                url: `${process.env.API_URL}/api/orders/${props.currentOrder.id}/order_items/${item.id}`, 
+                data: data
+            })
+
+        setOrder(response.data)
     }
 
     const removeItem = (item) => {
         ctx.removeCartItem(item)
     }
 
-    if (orderItems && orderItems.length < 1) {
+    if (sortedOrderItems && sortedOrderItems.length < 1) {
         return (
             <h2>No items in your cart at this time</h2>
         )
     }
-
-
 
 
     return (
@@ -46,7 +57,7 @@ const CartTable = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {orderItems.map(orderItem => (
+                {sortedOrderItems.map(orderItem => (
                     <tr key={orderItem.id} >
                         <td className={styles.cartTableQtyColumns}>
                             <div className={styles.quantityControls}>
@@ -60,9 +71,14 @@ const CartTable = (props) => {
                         <td className={styles.cartTableRemoveColumns} onClick={()=>removeItem(orderItem)}>Remove</td>
                     </tr>
                 ))}
+                    <tr className={styles.cartTableTotalRow} style={{backgroundColor: '#fff7e5'}}>
+                        <td colSpan={2} className={styles.cartTableNameColumns}>Subtotal</td>
+                        <td className={styles.cartTablePriceColumns}>{order.subtotal}</td>
+                        <td></td>
+                    </tr>
                     <tr className={styles.cartTableTotalRow}>
                         <td colSpan={2} className={styles.cartTableNameColumns}>Total</td>
-                        <td className={styles.cartTablePriceColumns}>{ctx.total}</td>
+                        <td className={styles.cartTablePriceColumns}>{order.total}</td>
                         <td></td>
                     </tr>
             </tbody>

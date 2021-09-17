@@ -1,8 +1,10 @@
 import CartTable from "../components/Cart/CartTable"
 import axios from 'axios'
+import { useEffect } from "react"
 
 
 const Cart = (props) => {
+    
 
     return (
         <CartTable currentOrder={props.order} />
