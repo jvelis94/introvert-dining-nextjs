@@ -3,12 +3,13 @@ import styles from './CartTable.module.css'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import OrderContext from '../../store/order-context';
+import { useCookies } from 'react-cookie';
+import axios from 'axios'
 
 const CartTable = (props) => {
     const ctx = useContext(OrderContext)
-    const orderItems = ctx.currentOrder['orderItems'].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    // console.log('current order is..')
-    // console.log(orderItems)
+    const [cookies, setCookie, removeCookie] = useCookies([]);
+    const orderItems = props.currentOrder.order_items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 
     const incrementQuantity = (item) => {
         ctx.incrementQuantity(item)
@@ -46,7 +47,7 @@ const CartTable = (props) => {
             </thead>
             <tbody>
                 {orderItems.map(orderItem => (
-                    <tr key={orderItem.product.id} >
+                    <tr key={orderItem.id} >
                         <td className={styles.cartTableQtyColumns}>
                             <div className={styles.quantityControls}>
                                 <RemoveIcon className={styles.incrementDecrementBtn} onClick={()=>decrementQuantity(orderItem)} color={orderItem.quantity === 1 ? 'disabled' : 'inherit'} style={{fontSize: 'medium'}}/>
@@ -54,8 +55,8 @@ const CartTable = (props) => {
                                 <AddIcon className={styles.incrementDecrementBtn} onClick={()=>incrementQuantity(orderItem)} style={{fontSize: 'medium'}}/>
                             </div>
                         </td>
-                        <td className={styles.cartTableNameColumns}>{orderItem.product.name}</td>
-                        <td className={styles.cartTablePriceColumns}>{orderItem.product.price}</td>
+                        <td className={styles.cartTableNameColumns}>{orderItem.food_item.name}</td>
+                        <td className={styles.cartTablePriceColumns}>{orderItem.food_item.price}</td>
                         <td className={styles.cartTableRemoveColumns} onClick={()=>removeItem(orderItem)}>Remove</td>
                     </tr>
                 ))}

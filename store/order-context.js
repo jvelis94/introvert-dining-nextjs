@@ -8,39 +8,31 @@ const OrderContext = React.createContext({
     addToCart: (item) => {},
     incrementQuantity: (item) => {},
     decrementQuantity: (item) => {},
-    removeCartItem: (item) => {}
+    removeCartItem: (item) => {},
+    loadOrder: (order) => {}
 });
 
-const initialOrderState = {
-    id: null,
-    createdAt: null,
-    updatedAt: null,
-    status: "open",
-    subtotal: 0,
-    tax: 0,
-    tip: 0,
-    total: 0,
-    orderItems: [],
-    userId: 1
-}
 
 export const OrderContextProvider = (props) => {
-    const [currentOrder, setCurrentOrder] = useState(initialOrderState)
+    const [currentOrder, setCurrentOrder] = useState()
     const [addedNewOrderItem, setAddedNewOrderItem] = useState(false)
     const [total, setTotal] = useState(0)
     const [cookies, setCookie, removeCookie] = useCookies(['email']);
 
-    useEffect(() => {
-        // fetch('/api/cart')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         setCurrentOrder(data)
-        //         let totalBillArray = data['orderItems'].map(item => (item.product.price * item.quantity))
-        //         setTotal(totalBillArray.reduce((a,b) => a+b))
-        //     })
-        setAddedNewOrderItem(false)
-    }, [addedNewOrderItem])
+    // useEffect(() => {
+    //     // fetch('/api/cart')
+    //     //     .then(response => response.json())
+    //     //     .then(data => {
+    //     //         setCurrentOrder(data)
+    //     //         let totalBillArray = data['orderItems'].map(item => (item.product.price * item.quantity))
+    //     //         setTotal(totalBillArray.reduce((a,b) => a+b))
+    //     //     })
+    //     setAddedNewOrderItem(false)
+    // }, [addedNewOrderItem])
 
+    const loadOrder = (order) => {
+        setCurrentOrder(order)
+    }
 
     const addToCart = async (product) => {
         console.log(total)
@@ -137,7 +129,8 @@ export const OrderContextProvider = (props) => {
                 addToCart: addToCart,
                 incrementQuantity: incrementQuantity,
                 decrementQuantity: decrementQuantity,
-                removeCartItem: removeCartItem
+                removeCartItem: removeCartItem,
+                loadOrder: loadOrder
             }}
         >
             {props.children}
