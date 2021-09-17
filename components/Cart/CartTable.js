@@ -44,7 +44,7 @@ const CartTable = (props) => {
                 url: `${process.env.API_URL}/api/orders/${props.currentOrder.id}/order_items/${item.id}`, 
                 data: data
             })
-        console.log(response.data)
+        
         setOrder(response.data)
     }
 
