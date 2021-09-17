@@ -25,18 +25,27 @@ const CartTable = (props) => {
     }
 
     const decrementQuantity = async (item) => {
+        if (item.quantity > 1) {
+            const data = { order_id: props.currentOrder.id, item_action: "decrement"}
+            const response = await axios(
+                {   method: 'patch', 
+                    url: `${process.env.API_URL}/api/orders/${props.currentOrder.id}/order_items/${item.id}`, 
+                    data: data
+                })
+    
+            setOrder(response.data)
+        }
+    }
+
+    const removeItem = async (item) => {
         const data = { order_id: props.currentOrder.id, item_action: "decrement"}
         const response = await axios(
-            {   method: 'patch', 
+            {   method: 'delete', 
                 url: `${process.env.API_URL}/api/orders/${props.currentOrder.id}/order_items/${item.id}`, 
                 data: data
             })
-
+        console.log(response.data)
         setOrder(response.data)
-    }
-
-    const removeItem = (item) => {
-        ctx.removeCartItem(item)
     }
 
     if (sortedOrderItems && sortedOrderItems.length < 1) {
@@ -61,9 +70,18 @@ const CartTable = (props) => {
                     <tr key={orderItem.id} >
                         <td className={styles.cartTableQtyColumns}>
                             <div className={styles.quantityControls}>
-                                <RemoveIcon className={styles.incrementDecrementBtn} onClick={()=>decrementQuantity(orderItem)} color={orderItem.quantity === 1 ? 'disabled' : 'inherit'} style={{fontSize: 'medium'}}/>
+                                <RemoveIcon 
+                                    className={styles.incrementDecrementBtn} 
+                                    onClick={()=>decrementQuantity(orderItem)} 
+                                    color={orderItem.quantity === 1 ? 'disabled' : 'inherit'} style={{fontSize: 'medium'}}
+                                    disabled={orderItem.quantity === 1 ? true : false}
+                                    />
                                 <span style={{color: 'white'}}>{orderItem.quantity}</span>
-                                <AddIcon className={styles.incrementDecrementBtn} onClick={()=>incrementQuantity(orderItem)} style={{fontSize: 'medium'}}/>
+                                <AddIcon 
+                                    className={styles.incrementDecrementBtn} 
+                                    onClick={()=>incrementQuantity(orderItem)} 
+                                    style={{fontSize: 'medium'}}
+                                />
                             </div>
                         </td>
                         <td className={styles.cartTableNameColumns}>{orderItem.food_item.name}</td>
@@ -71,11 +89,11 @@ const CartTable = (props) => {
                         <td className={styles.cartTableRemoveColumns} onClick={()=>removeItem(orderItem)}>Remove</td>
                     </tr>
                 ))}
-                    <tr className={styles.cartTableTotalRow} style={{backgroundColor: '#fff7e5'}}>
+                    {/* <tr className={styles.cartTableTotalRow} style={{backgroundColor: '#fff7e5'}}>
                         <td colSpan={2} className={styles.cartTableNameColumns}>Subtotal</td>
                         <td className={styles.cartTablePriceColumns}>{order.subtotal}</td>
                         <td></td>
-                    </tr>
+                    </tr> */}
                     <tr className={styles.cartTableTotalRow}>
                         <td colSpan={2} className={styles.cartTableNameColumns}>Total</td>
                         <td className={styles.cartTablePriceColumns}>{order.total}</td>
