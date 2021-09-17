@@ -42,6 +42,8 @@ const MenuItem = (props) => {
     let selectedJpgImage = menuItemImages[category]
 
     const addToCart = async (item) => {
+        console.log('adding to cart')
+        console.log(cookies.order_id)
         const data = { order_id: cookies.order_id, food_item_id: item.id, price: item.price, quantity: 1 }
         const response = await axios.post(`${process.env.API_URL}/api/orders/${cookies.order_id}/order_items`, data)
         const order = response.data

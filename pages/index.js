@@ -2,10 +2,16 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
+import { useState } from 'react';
+import NewOrderModal from '../components/NewOrderModal';
 
 
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,11 +24,10 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to My Restaurant App
         </h1>
-        <Link href="/new_order" passHref >
-          <button className={styles.orderBtn}>
-            Place an order
-          </button>
-        </Link>
+        <NewOrderModal handleOpen={handleOpen} handleClose={handleClose} open={open}/>
+        <button className={styles.orderBtn} onClick={handleOpen} >
+          Place an order
+        </button>
       </main>
 
       <footer className={styles.footer}>
