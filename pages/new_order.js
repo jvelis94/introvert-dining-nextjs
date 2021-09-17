@@ -24,6 +24,11 @@ const NewOrder = (props) => {
                 maxAge: 3600, // Expires after 1hr
                 sameSite: true 
             })
+            setCookie("order_id", response.data.id, { 
+                path: "/",
+                maxAge: 3600, // Expires after 1hr
+                sameSite: true 
+            })
             router.push('/menu')
 
         }
