@@ -5,6 +5,7 @@ import MenuSearch from '../components/UI/MenuSearch'
 import OrderContext from '../store/order-context'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie';
+import NewOrderModal from '../components/NewOrderModal'
 
 const Menu = (props) => {
     const menuCategories = ["Appetizers", "Wings", "Burgers", "Sides", "Beers", "Cocktails", "Salads", "Sweets"]
@@ -14,12 +15,17 @@ const Menu = (props) => {
     const ctx = useContext(OrderContext)
     const [cookies, setCookie, removeCookie] = useCookies(['email']);
     const router = useRouter()
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    
 
     useEffect(() => {
+      console.log('in useeffect')
       if (!cookies.email) {
-        router.push('/new_order')
+        setOpen(true)
       }
-    })
+    }, [cookies])
   
     const changeActiveItem = (category) => {
       setActiveCategory(category)
@@ -42,7 +48,10 @@ const Menu = (props) => {
       setOpenSearchResults(false);
     };
 
+
+
     
+
     const searchResultsContainer = (
       <div>
           {currentSearchResults.map(item => (
@@ -50,7 +59,6 @@ const Menu = (props) => {
           ))}
       </div>
     )
-
     const allResultsFilterable = (
       <div>
         <MenuNav categories={menuCategories} activeCategory={activeCategory} changeActiveItem={changeActiveItem}/>
@@ -64,6 +72,7 @@ const Menu = (props) => {
     return (
       <div>
         <div>
+          <NewOrderModal handleOpen={handleOpen} handleClose={handleClose} open={open}/>
           <MenuSearch handleMenuSearchInput={handleMenuSearchInput} handleCloseSearchResults={handleCloseSearchResults}/>
           { openSearchResults ? searchResultsContainer : allResultsFilterable }
         </div>
