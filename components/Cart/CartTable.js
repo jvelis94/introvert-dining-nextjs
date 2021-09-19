@@ -96,7 +96,7 @@ const CartTable = (props) => {
                     </tr> */}
                     <tr className={styles.cartTableTotalRow}>
                         <td colSpan={2} className={styles.cartTableNameColumns}>Total</td>
-                        <td className={styles.cartTablePriceColumns}>{order.total}</td>
+                        <td className={styles.cartTablePriceColumns}>${order.total}</td>
                         <td></td>
                     </tr>
             </tbody>
