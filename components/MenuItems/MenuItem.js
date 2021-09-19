@@ -13,7 +13,6 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import React, {useState, useContext} from 'react';
-import OrderContext from '../../store/order-context';
 import axios from 'axios'
 import { useCookies } from 'react-cookie';
 
@@ -23,9 +22,6 @@ const MenuItem = (props) => {
     let nameSplit = name.split(' ')
     let nameCapiTalizedEachWord = nameSplit.map(word => `${word[0].toUpperCase()}${word.substring(1)}`).join(' ')
     const [cookies, setCookie, removeCookie] = useCookies(['email']);
-
-    const ctx = useContext(OrderContext)
-    
 
 
     const menuItemImages = {

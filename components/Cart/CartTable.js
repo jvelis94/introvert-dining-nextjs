@@ -1,16 +1,14 @@
-import React, {useContext, useState, useMemo, useEffect} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import styles from './CartTable.module.css'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import OrderContext from '../../store/order-context';
 import { useCookies } from 'react-cookie';
 import axios from 'axios'
 
 const CartTable = (props) => {
-    const ctx = useContext(OrderContext)
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const [order, setOrder] = useState(props.currentOrder)
-    const sortedOrderItems = order.order_items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    const sortedOrderItems = order.order_items.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
 
     const incrementQuantity = async (item) => {
         const data = { order_id: props.currentOrder.id, item_action: "increment"}

@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react'
 import MenuItem from '../components/MenuItems/MenuItem'
 import MenuNav from '../components/UI/MenuNav'
 import MenuSearch from '../components/UI/MenuSearch'
-import OrderContext from '../store/order-context'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie';
 import NewOrderModal from '../components/NewOrderModal'
@@ -14,7 +13,6 @@ const Menu = (props) => {
     const [activeCategory, setActiveCategory] = useState('Appetizers');
     const [currentSearchResults, setCurrentSearchResults] = useState([])
     const [openSearchResults, setOpenSearchResults] = useState(false);
-    const ctx = useContext(OrderContext)
     const [cookies, setCookie, removeCookie] = useCookies(['email']);
     const router = useRouter()
     const [open, setOpen] = useState(false);
