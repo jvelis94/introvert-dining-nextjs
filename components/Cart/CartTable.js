@@ -56,6 +56,8 @@ const CartTable = (props) => {
 
 
     return (
+        <>
+        <h1 style={{textAlign:'center'}}>Cart</h1>
         <table className={styles.cartTable}>
             <thead>
                 <tr className={styles.cartTableHeadersRow}>
@@ -101,6 +103,7 @@ const CartTable = (props) => {
                     </tr>
             </tbody>
         </table>
+        </>
     )
 }
 
