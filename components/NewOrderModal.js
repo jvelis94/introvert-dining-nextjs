@@ -27,14 +27,14 @@ export default function NewOrderModal(props) {
     const handleEmailSubmit = async (e) => {
         e.preventDefault()
         let orderCookie = null
-        const findOrder = await axios.get(`http://localhost:3000/api/orders?email=${emailRef.current.value}`)
+        const findOrder = await axios.get(`${process.env.API_URL}/api/orders?email=${emailRef.current.value}`)
         if (findOrder.data.length > 0 && !findOrder.data[0].isPaid) {
             orderCookie = findOrder.data[0].id
         } else {
             const data = {email: emailRef.current.value }
             const newOrder = await axios({
                 method: 'post',
-                url: 'http://localhost:3000/api/orders',
+                url: `${process.env.API_URL}/api/orders`,
                 withCredentials: false,
                 data: data
             })

@@ -13,7 +13,7 @@ const Orders = (props) => {
     const handleEmailSubmit = async (e) => {
         e.preventDefault()
         const email = emailRef.current.value
-        const response = await axios.get(`http://localhost:3000/api/orders?email=${email}`)
+        const response = await axios.get(`${process.env.API_URL}/api/orders?email=${email}`)
         console.log(response.data)
         setOrders(response.data)
     }

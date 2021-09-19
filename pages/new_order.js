@@ -13,7 +13,7 @@ const NewOrder = (props) => {
         const data = {email: emailRef.current.value }
         const response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/api/orders',
+            url: `${process.env.API_URL}/api/orders`,
             withCredentials: false,
             data: data
         })

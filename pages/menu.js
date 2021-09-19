@@ -81,7 +81,7 @@ const Menu = (props) => {
 }
 
 export async function getStaticProps(context) {
-    const response = await fetch("http://localhost:3000/api/food_items")
+    const response = await fetch(`${process.env.API_URL}/api/food_items`)
     if (response.status != 200) {
       return {
         redirect: {
