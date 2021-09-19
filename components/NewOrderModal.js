@@ -28,7 +28,7 @@ export default function NewOrderModal(props) {
         e.preventDefault()
         let orderCookie = null
         const findOrder = await axios.get(`http://localhost:3000/api/orders?email=${emailRef.current.value}`)
-        if (findOrder.data.length > 0) {
+        if (findOrder.data.length > 0 && !findOrder.data[0].isPaid) {
             orderCookie = findOrder.data[0].id
         } else {
             const data = {email: emailRef.current.value }
@@ -55,7 +55,7 @@ export default function NewOrderModal(props) {
         console.log('set cookies')
         props.handleClose()
 
-        router.pathname === "/menu" ? reouter.reload : router.push('/menu')
+        router.pathname === "/menu" ? router.reload() : router.push('/menu')
     }
 
     return (

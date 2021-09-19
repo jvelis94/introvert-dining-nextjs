@@ -71,7 +71,7 @@ const Menu = (props) => {
 
     return (
       <div>
-        <div>
+        <div style={{position: 'relative', zIndex: 1}}>
           <NewOrderModal handleOpen={handleOpen} handleClose={handleClose} open={open}/>
           <MenuSearch handleMenuSearchInput={handleMenuSearchInput} handleCloseSearchResults={handleCloseSearchResults}/>
           { openSearchResults ? searchResultsContainer : allResultsFilterable }
