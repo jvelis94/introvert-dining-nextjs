@@ -120,6 +120,9 @@
   border-radius: 12px;
   border: none;
   font-size: large;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 @media (max-width: 600px) {

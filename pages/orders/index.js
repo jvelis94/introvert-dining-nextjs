@@ -15,7 +15,6 @@ const Orders = (props) => {
         if (cookies.email) {
             emailRef.current.value = cookies.email
         } 
-        
     }, [])
 
     const handleEmailSubmit = async (e) => {
