@@ -32,13 +32,25 @@ export default function Home() {
 
         <main className={styles.main}>
           <h1 className={styles.title}>
-            Welcome to My Restaurant App
+            Introvert Dining Experience
           </h1>
           <br/>
-          <NewOrderModal handleOpen={handleOpen} handleClose={handleClose} open={open}/>
           <button className={styles.orderBtn} onClick={handleOpen} >
             Place an order
           </button>
+          <br/>
+          <h2>How to dine like an introvert:</h2>
+          <div>
+            <div className={styles.homeItemContainer}><h3>Find your table</h3></div>
+            <div className={styles.homeItemContainer}><h3>Order your delicious meal on this app</h3></div>
+            <div className={styles.homeItemContainer}><h3>Eat your meal</h3></div>
+            <div className={styles.homeItemContainer}><h3>Pay on this app</h3></div>
+            <div className={styles.homeItemContainer}><h3>All without needing to say a single word to anyone!</h3></div>
+            
+          </div>
+          
+          <NewOrderModal handleOpen={handleOpen} handleClose={handleClose} open={open}/>
+          
         </main>
       </div>
   )
