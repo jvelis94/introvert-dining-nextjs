@@ -48,7 +48,23 @@ const MenuItem = (props) => {
         const response = await axios.post(`${process.env.API_URL}/api/orders/${cookies.order_id}/order_items`, data)
         const order = response.data
 
-        console.log(order)
+        if (cookies.order_items_count) {
+            console.log('IN COOKIES')
+            setCookie("order_items_count", parseInt(cookies.order_items_count) + 1, { 
+                path: "/",
+                maxAge: 3600, // Expires after 1hr
+                sameSite: true 
+            })
+            props.handleOrderItemsCount()
+        } else {
+            console.log('IN SET COOKIES')
+            setCookie("order_items_count", 1, { 
+                path: "/",
+                maxAge: 3600, // Expires after 1hr
+                sameSite: true 
+            })
+        }
+        // console.log(order)
 
 
 

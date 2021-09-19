@@ -27,9 +27,13 @@ export default function NewOrderModal(props) {
     const handleEmailSubmit = async (e) => {
         e.preventDefault()
         let orderCookie = null
+        let orderItemsCount = null
         const findOrder = await axios.get(`${process.env.API_URL}/api/orders?email=${emailRef.current.value}`)
         if (findOrder.data.length > 0 && !findOrder.data[0].isPaid) {
+            console.log(findOrder.data[0])
             orderCookie = findOrder.data[0].id
+            orderItemsCount = findOrder.data[0].order_items.length
+
         } else {
             const data = {email: emailRef.current.value }
             const newOrder = await axios({
@@ -40,6 +44,7 @@ export default function NewOrderModal(props) {
             })
 
             orderCookie = newOrder.data.id
+            orderItemsCount = newOrder.data.order_items.length
         }
         
         setCookie("email", emailRef.current.value, { 
@@ -48,6 +53,11 @@ export default function NewOrderModal(props) {
             sameSite: true 
         })
         setCookie("order_id", orderCookie, { 
+            path: "/",
+            maxAge: 3600, // Expires after 1hr
+            sameSite: true 
+        })
+        setCookie("order_items_count", orderItemsCount, { 
             path: "/",
             maxAge: 3600, // Expires after 1hr
             sameSite: true 

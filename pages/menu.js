@@ -6,6 +6,8 @@ import OrderContext from '../store/order-context'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie';
 import NewOrderModal from '../components/NewOrderModal'
+import dynamic from 'next/dynamic'
+const CartLayout = dynamic(() => import('../components/Layout/CartLayout'))
 
 const Menu = (props) => {
     const menuCategories = ["Appetizers", "Wings", "Burgers", "Sides", "Beers", "Cocktails", "Salads", "Sweets"]
@@ -18,6 +20,7 @@ const Menu = (props) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [orderItemsCount, setOrderItemsCount] = useState(cookies.order_items_count)
     
 
     useEffect(() => {
@@ -49,13 +52,17 @@ const Menu = (props) => {
     };
 
 
+    const handleOrderItemsCount = () => {
+      console.log("in handleOrderItemsCount")
+      setOrderItemsCount(prevState => parseInt(prevState) + 1)
+    }
 
     
 
     const searchResultsContainer = (
       <div>
           {currentSearchResults.map(item => (
-            <MenuItem key={item.id} item={item} />
+            <MenuItem key={item.id} item={item} handleOrderItemsCount={handleOrderItemsCount}/>
           ))}
       </div>
     )
@@ -64,13 +71,15 @@ const Menu = (props) => {
         <MenuNav categories={menuCategories} activeCategory={activeCategory} changeActiveItem={changeActiveItem}/>
         
         {props.data.filter(item => item.category === activeCategory).map(item => (
-          <MenuItem key={item.id} item={item} />
+          <MenuItem key={item.id} item={item} handleOrderItemsCount={handleOrderItemsCount}/>
         ))}
       </div>
     )
 
     return (
+      
       <div>
+        {cookies.order_id && <CartLayout orderItemsCount={orderItemsCount} order_id={cookies.order_id}/>}
         <div style={{position: 'relative', zIndex: 1}}>
           <NewOrderModal handleOpen={handleOpen} handleClose={handleClose} open={open}/>
           <MenuSearch handleMenuSearchInput={handleMenuSearchInput} handleCloseSearchResults={handleCloseSearchResults}/>
@@ -79,6 +88,9 @@ const Menu = (props) => {
       </div>
     )
 }
+
+
+
 
 export async function getStaticProps(context) {
     const response = await fetch(`${process.env.API_URL}/api/food_items`)
