@@ -1,14 +1,22 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { useCookies } from 'react-cookie';
+import { Cookies, useCookies } from 'react-cookie';
 import styles from '../../components/Orders.module.css'
 
 
 const Orders = (props) => {
     const [orders, setOrders] = useState([])
     const emailRef = useRef()
+    const [cookies, setCookie, removeCookie] = useCookies(['email']);
+
+    useEffect(() => {
+        if (cookies.email) {
+            emailRef.current.value = cookies.email
+        } 
+        
+    }, [])
 
     const handleEmailSubmit = async (e) => {
         e.preventDefault()
@@ -29,7 +37,7 @@ const Orders = (props) => {
                 <h1>Lets find your most recent orders:</h1>
                 <form onSubmit={handleEmailSubmit} >
                     <input ref={emailRef} className={styles.ordersSearchInput} placeholder="input email" />
-                    <input type="submit" className={styles.ordersSearchBtn}/>
+                    <input type="submit" value="Search" className={styles.ordersSearchBtn}/>
                 </form>
             </div>
             <div>

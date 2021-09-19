@@ -3,7 +3,7 @@ import CartTable from '../../components/Cart/CartTable'
 import axios from 'axios'
 import { useEffect } from "react"
 import CheckoutForm from '../../components/Stripe/CheckoutForm'
-
+import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
 
@@ -39,6 +39,12 @@ const Order = (props) => {
                     </Elements>
                 </div>
             </StripeProvider>
+
+            <br/>
+            
+            <Link href="/orders" passHref>
+                <a><h6 style={{color: 'blue', textAlign: 'center'}}>View other previous orders</h6></a>
+            </Link>
 
         </>
     )

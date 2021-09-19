@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <OrderContextProvider>
-      {cookies.order_id && router.pathname != '/orders/[pid]' && <CartLayout order_id={cookies.order_id}/>}
+      {cookies.order_id && router.pathname != ('/orders/[pid]' || '/menu') && <CartLayout order_id={cookies.order_id} orderItemsCount={cookies.order_items_count}/>}
       <Component {...pageProps} />
     </OrderContextProvider>
   )
