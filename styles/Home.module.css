@@ -1,10 +1,10 @@
 .container {
   min-height: 100vh;
   padding: 0 0.5rem;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   height: 100vh;
 }
 
@@ -123,6 +123,14 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+.homeItemContainer {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #ffc534;
+  border-radius: 10px;
+  box-shadow: 6px 9px 22px -25px rgba(0,0,0,0.75);
 }
 
 @media (max-width: 600px) {
