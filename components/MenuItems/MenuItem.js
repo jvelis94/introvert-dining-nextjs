@@ -9,6 +9,15 @@ import salads from '../../public/thumbnails/salads.jpg'
 import sides from '../../public/thumbnails/sides.jpg'
 import sweets from '../../public/thumbnails/sweets.jpg'
 import wings from '../../public/thumbnails/wings.jpg'
+import meatball_sundae from '../../public/thumbnails/meatball-sundae.jpg'
+import jalapeno_poppers from '../../public/thumbnails/jalapeno-poppers.jpg'
+import pretzel_pops from '../../public/thumbnails/pretzel-pops.jpg'
+import ahi_cupcakes from '../../public/thumbnails/ahi-cupcakes.jpg'
+import skillet_mac from '../../public/thumbnails/skillet-mac.jpg'
+import pimento_cheese from '../../public/thumbnails/pimento-cheese-dip.jpg'
+import boneless_wings from '../../public/thumbnails/boneless-wings.jpg'
+import house_salad from '../../public/thumbnails/house-salad.jpg'
+import spicy_ahi from '../../public/thumbnails/spicy-ahi.jpg'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -35,7 +44,18 @@ const MenuItem = (props) => {
         "Sweets": sweets
     }
 
+    console.log(name)
+
     let selectedJpgImage = menuItemImages[category]
+    name === "meatball sundae" ? selectedJpgImage = meatball_sundae : selectedJpgImage
+    name === "jalapeno popper grilled cheese" ? selectedJpgImage = jalapeno_poppers : selectedJpgImage
+    name === "pretzel pops" ? selectedJpgImage = pretzel_pops : selectedJpgImage
+    name === "ahi cupcakes" ? selectedJpgImage = ahi_cupcakes : selectedJpgImage
+    name === "skillet mac n' cheese" ? selectedJpgImage = skillet_mac : selectedJpgImage
+    name === "pimento cheese dip" ? selectedJpgImage = pimento_cheese : selectedJpgImage
+    name === "boneless" ? selectedJpgImage = boneless_wings : selectedJpgImage
+    name === "house salad" ? selectedJpgImage = house_salad : selectedJpgImage
+    name === "spicy ahi" ? selectedJpgImage = spicy_ahi : selectedJpgImage
 
     const addToCart = async (item) => {
         console.log('adding to cart')
